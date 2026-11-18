@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Menu from '../components/Menu.jsx';             // React
+import Carousel from '../components/Carousel.svelte';  // Svelte
+import ContactForm from '../components/ContactForm.vue'; // Vue
+import Chat from '../components/Chat.jsx';
+---
+<Layout title="Astro 5 · Zero JS por padrão">
+  <Header />
+  <main>
+    <Menu client:load />
+
+    <h1>Sites rápidos de verdade</h1>
+    <p>Renderizado no servidor. Só HTML. O JavaScript vai apenas para as islands abaixo.</p>
+
+    <div style="height:120vh">Role a página para baixo ↓</div>
+
+    <Carousel client:visible />
+    <ContactForm client:visible />
+
+    <Chat client:idle />
+  </main>
+</Layout>
