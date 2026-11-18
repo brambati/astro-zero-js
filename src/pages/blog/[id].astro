@@ -1,0 +1,24 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { id: post.id } }));
+}
+
+const post = await getEntry('blog', Astro.params.id);
+if (!post) throw new Error('post não encontrado');
+const { Content } = await render(post);
+---
+<Layout title={post.data.title}>
+  <Header />
+  <main>
+    <Image src={post.data.cover} alt={post.data.title}
+      transition:name={`hero-${post.id}`} />
+    <h1>{post.data.title}</h1>
+    <Content />
+  </main>
+</Layout>
